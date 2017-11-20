@@ -23,8 +23,8 @@ app.use('/', express.static('public'));
 
 app.post('/blur', upload.array(), (req, res) => {
     let url = request(req.query.url)
-    let x = request(req.query.x)
-    let y = request(req.query.y)
+    let x = (req.query.x)
+    let y = (req.query.y)
     gm(url)
         .blur(x, y)
         .write('./uploads/edit.jpg', (err) => {
