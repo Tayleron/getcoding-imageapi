@@ -11,8 +11,6 @@ const port = 8888;
 const app = express();
 const upload = multer();
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use('/', express.static('public'));
-
 
 // //app POST requests
 // app.post('/', upload.array(), (req, res) => {
@@ -22,12 +20,14 @@ app.use('/', express.static('public'));
 // });
 
 app.post('/blur', upload.array(), (req, res) => {
-    let url = request(req.query.url)
-    let x = (req.query.x)
-    let y = (req.query.y)
+    let url = request(req.query.url) //get the url of the image
+    let x = (req.query.x) //set x param
+    let y = (req.query.y) //set y param
+    let save = (req.query.save) //set save location (will this save to
+                                //the server or the user?)
     gm(url)
         .blur(x, y)
-        .write('./uploads/edit.jpg', (err) => {
+        .write(save, (err) => {
         return res.status(200).send()
     });
 });
